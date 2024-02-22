@@ -1,0 +1,4 @@
+paho-mqtt
+wakeonlan
+python-nmap
+python-dotenv
