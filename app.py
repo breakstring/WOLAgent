@@ -15,8 +15,8 @@ load_dotenv(override=True)
 # 从环境变量获取配置
 MQTT_SERVER = os.getenv("MQTT_SERVER")
 MQTT_PORT = int(os.getenv("MQTT_PORT", 8883))  # 默认端口为8883
-MQTT_TOPIC_SUBSCRIBE = os.getenv("MQTT_TOPIC_SUBSCRIBE")
-MQTT_TOPIC_PUBLISH = os.getenv("MQTT_TOPIC_PUBLISH")
+MQTT_TOPIC_SUBSCRIBE = os.getenv("MQTT_TOPIC_SUBSCRIBE", "home/devices/control")
+MQTT_TOPIC_PUBLISH = os.getenv("MQTT_TOPIC_PUBLISH", "home/devices/status")
 MQTT_USERNAME = os.getenv("MQTT_USERNAME")  # MQTT服务器的用户名
 MQTT_PASSWORD = os.getenv("MQTT_PASSWORD")  # MQTT服务器的密码
 
