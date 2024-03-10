@@ -17,10 +17,11 @@ MQTT_SERVER = os.getenv("MQTT_SERVER")
 MQTT_PORT = int(os.getenv("MQTT_PORT", 8883))  # 默认端口为8883
 MQTT_TOPIC_SUBSCRIBE = os.getenv("MQTT_TOPIC_SUBSCRIBE")
 MQTT_TOPIC_PUBLISH = os.getenv("MQTT_TOPIC_PUBLISH")
-LOCAL_NETWORK = os.getenv("LOCAL_NETWORK")
-HEARTBEAT_INTERVAL = int(os.getenv("HEARTBEAT_INTERVAL"))
 MQTT_USERNAME = os.getenv("MQTT_USERNAME")  # MQTT服务器的用户名
 MQTT_PASSWORD = os.getenv("MQTT_PASSWORD")  # MQTT服务器的密码
+
+HEARTBEAT_INTERVAL = 1
+
 
 def on_connect(client, userdata, flags, rc):
     print("Connected with result code "+str(rc))
@@ -117,7 +118,9 @@ def send_heartbeat():
 client_id = f'wolclient-{random.randint(0, 1000)}'
 client = mqtt.Client(client_id=client_id, callback_api_version=CallbackAPIVersion.VERSION1, protocol=mqtt.MQTTv311)
 client.tls_set()  # 启用TLS
-client.username_pw_set(MQTT_USERNAME, MQTT_PASSWORD)  # 设置用户名和密码
+
+if MQTT_USERNAME and MQTT_PASSWORD:  # Check if both MQTT_USERNAME and MQTT_PASSWORD are not empty strings
+    client.username_pw_set(MQTT_USERNAME, MQTT_PASSWORD)  # 设置用户名和密码
 
 client.on_connect = on_connect
 client.on_message = on_message
